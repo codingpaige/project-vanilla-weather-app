@@ -1,0 +1,33 @@
+body {
+  font-family: arial, sans-serif;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+.weather-app {
+  max-width: 600px;
+  margin: 30px auto;
+  border: 1px solid #bdc1c5;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #202124;
+  color: #e8eaed;
+}
+.results {
+  font-family: arial, sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  color: #9aa0a5;
+}
+.city-name {
+  color: #bdc1c5;
+}
+.temp-value {
+  font-weight: 400;
+  font-size: 48px;
+}
