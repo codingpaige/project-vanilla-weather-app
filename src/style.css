@@ -52,9 +52,7 @@ a {
   color: #e8eaed;
   text-align: left;
 }
-.celcius-metric {
-  color: #e8eaed;
-}
+
 .humidity-wind,
 .weather-overview,
 .temp-metrics {
@@ -63,6 +61,17 @@ a {
 .temp-metrics {
   font-size: 16px;
   display: inline;
+}
+
+#celsius-metric {
+  color: default;
+}
+.temp-metrics .active {
+  color: #e8eaed;
+}
+.temp-metrics .active:hover {
+  text-decoration: none;
+  cursor: default;
 }
 .humidity-wind {
   font-size: 12px;
