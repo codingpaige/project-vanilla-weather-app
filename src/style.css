@@ -25,6 +25,17 @@ a {
   color: #9aa0a5;
   background-color: #202124;
 }
+#search-form {
+  margin-bottom: 20px;
+}
+#search-button {
+  color: white;
+  border-color: white;
+}
+
+#search-button:hover {
+  background-color: #ec6e4b;
+}
 .results {
   font-family: arial, sans-serif;
   font-size: 14px;

@@ -1,5 +1,17 @@
+function search(city) {
+  let apiKey = "294ff1c8d42a84a37badb92d65cbfb69";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInput = document.querySelector("#city-input");
+  search(cityInput.value);
+}
+
 function formatDate(timestamp) {
-  let date = new Date(timestamp);
+  let date = new Date(timestamp * 1000);
   let days = [
     "Sunday",
     "Monday",
@@ -23,7 +35,6 @@ function formatDate(timestamp) {
 }
 
 function displayTemperature(response) {
-  console.log(response.data);
   let cityName = document.querySelector(".city-name");
   let cityTemp = document.querySelector(".temp-value");
   let weatherDescription = document.querySelector(".weather-description");
@@ -37,7 +48,8 @@ function displayTemperature(response) {
   weatherDescription.innerHTML = response.data.weather[0].description;
   humidity.innerHTML = Math.round(response.data.main.humidity);
   wind.innerHTML = Math.round(response.data.wind.speed);
-  dayAndTime.innerHTML = formatDate(response.data.timezone * 1000);
+  dayAndTime.innerHTML = formatDate(response.data.dt);
+  console.log(response.data);
   weatherIcon.setAttribute(
     "src",
     `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
@@ -45,6 +57,6 @@ function displayTemperature(response) {
   weatherIcon.setAttribute("alt", `${response.data.weather[0].description}`);
 }
 
-let apiKey = "294ff1c8d42a84a37badb92d65cbfb69";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=singapore&appid=${apiKey}&units=metric`;
-axios.get(apiUrl).then(displayTemperature);
+search("Singapore");
+let searchForm = document.querySelector("#search-form");
+searchForm.addEventListener("submit", handleSubmit);
