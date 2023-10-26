@@ -1,3 +1,15 @@
+function calculateFahrenheit(event) {
+  event.preventDefault();
+  let tempValue = document.querySelector(".temp-value");
+  tempValue.innerHTML = (30 * 9) / 5 + 32;
+}
+
+function calculateCelsius(event) {
+  event.preventDefault();
+  let tempValue = document.querySelector(".temp-value");
+  tempValue.innerHTML = Math.round(celsiusTemperature);
+}
+
 function search(city) {
   let apiKey = "294ff1c8d42a84a37badb92d65cbfb69";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -43,8 +55,10 @@ function displayTemperature(response) {
   let dayAndTime = document.querySelector(".day-and-time");
   let weatherIcon = document.querySelector("#weather-icon");
 
+  celsiusTemperature = response.data.main.temp;
+
   cityName.innerHTML = response.data.name;
-  cityTemp.innerHTML = Math.round(response.data.main.temp);
+  cityTemp.innerHTML = Math.round(celsiusTemperature);
   weatherDescription.innerHTML = response.data.weather[0].description;
   humidity.innerHTML = Math.round(response.data.main.humidity);
   wind.innerHTML = Math.round(response.data.wind.speed);
@@ -58,5 +72,14 @@ function displayTemperature(response) {
 }
 
 search("Singapore");
+
+let fahrenheitLink = document.querySelector(".fahrenheit-metric");
+fahrenheitLink.addEventListener("click", calculateFahrenheit);
+
+let celsiusLink = document.querySelector(".celsius-metric");
+celsiusLink.addEventListener("click", calculateCelsius);
+
+let celsiusTemperature = null;
+
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", handleSubmit);
