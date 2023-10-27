@@ -1,3 +1,60 @@
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  forecastHTML =
+    forecastHTML +
+    `<div class="col-2">
+     <div class="weather-forecast-day">Mon</div>
+    <img src="https://openweathermap.org/img/wn/04d@2x.png"
+    alt="mostly-cloudy" width="42"/>
+    <span class="weather-forecast-temp-max">
+    18°
+    </span> <span class="weather-forecast-temp-min">
+    12°
+    </span>
+    </div>`;
+  forecastHTML =
+    forecastHTML +
+    `<div class="col-2">
+     <div class="weather-forecast-day">Mon</div>
+    <img src="https://openweathermap.org/img/wn/04d@2x.png"
+    alt="mostly-cloudy" width="42"/>
+    <span class="weather-forecast-temp-max">
+    18°
+    </span> <span class="weather-forecast-temp-min">
+    12°
+    </span>
+    </div>`;
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+let celsiusTemperature = null;
+
+function displayTemperature(response) {
+  let cityName = document.querySelector(".city-name");
+  let cityTemp = document.querySelector(".temp-value");
+  let weatherDescription = document.querySelector(".weather-description");
+  let humidity = document.querySelector(".humidity");
+  let wind = document.querySelector(".wind");
+  let dayAndTime = document.querySelector(".day-and-time");
+  let weatherIcon = document.querySelector("#weather-icon");
+
+  celsiusTemperature = response.data.main.temp;
+
+  cityName.innerHTML = response.data.name;
+  cityTemp.innerHTML = Math.round(celsiusTemperature);
+  weatherDescription.innerHTML = response.data.weather[0].description;
+  humidity.innerHTML = Math.round(response.data.main.humidity);
+  wind.innerHTML = Math.round(response.data.wind.speed);
+  dayAndTime.innerHTML = formatDate(response.data.dt);
+  weatherIcon.setAttribute(
+    "src",
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  weatherIcon.setAttribute("alt", `${response.data.weather[0].description}`);
+}
+
 function calculateFahrenheit(event) {
   event.preventDefault();
   fahrenheitLink.classList.add("active");
@@ -50,34 +107,6 @@ function formatDate(timestamp) {
   return `${day} ${hour}:${minute}`;
 }
 
-let celsiusTemperature = null;
-
-function displayTemperature(response) {
-  let cityName = document.querySelector(".city-name");
-  let cityTemp = document.querySelector(".temp-value");
-  let weatherDescription = document.querySelector(".weather-description");
-  let humidity = document.querySelector(".humidity");
-  let wind = document.querySelector(".wind");
-  let dayAndTime = document.querySelector(".day-and-time");
-  let weatherIcon = document.querySelector("#weather-icon");
-
-  celsiusTemperature = response.data.main.temp;
-
-  cityName.innerHTML = response.data.name;
-  cityTemp.innerHTML = Math.round(celsiusTemperature);
-  weatherDescription.innerHTML = response.data.weather[0].description;
-  humidity.innerHTML = Math.round(response.data.main.humidity);
-  wind.innerHTML = Math.round(response.data.wind.speed);
-  dayAndTime.innerHTML = formatDate(response.data.dt);
-  weatherIcon.setAttribute(
-    "src",
-    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-  );
-  weatherIcon.setAttribute("alt", `${response.data.weather[0].description}`);
-}
-
-search("Singapore");
-
 let fahrenheitLink = document.querySelector("#fahrenheit-metric");
 fahrenheitLink.addEventListener("click", calculateFahrenheit);
 
@@ -86,3 +115,6 @@ celsiusLink.addEventListener("click", calculateCelsius);
 
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", handleSubmit);
+
+search("Singapore");
+displayForecast();
